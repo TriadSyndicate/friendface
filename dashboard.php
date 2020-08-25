@@ -4,9 +4,9 @@ require 'conn.php';
 $cx = $conn;
 $sqlx = "SELECT * FROM user_data";
 $res = $cx->query($sqlx);
-/*if ($_SESSION['Complete'] == "FALSE") {
-  header("Location: login.php");
-}*/
+if ($_SESSION['Complete'] == "FALSE") {
+  header("Location: index.php");
+}
  ?>
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
@@ -19,6 +19,12 @@ $res = $cx->query($sqlx);
     <link rel="stylesheet" href="css/app.css">
   </head>
   <body>
+  <ul class="menu">
+  <li class="menu-text">Friend Face</li>
+  <li><a href="dashboard.php">Dashboard</a></li>
+  <li><a href="profile.php?id=<?php echo $_SESSION['Logged_ID']; ?>">My Profile</a></li>
+  <li><a href="logout.php">Logout</a></li>
+</ul>
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
         <div class="large-12 cell">
