@@ -2,9 +2,11 @@
 session_start();
 require 'conn.php';
 $cx = $conn;
-if ($_SESSION['Complete'] == "FALSE") {
+$sqlx = "SELECT * FROM user_data";
+$res = $cx->query($sqlx);
+/*if ($_SESSION['Complete'] == "FALSE") {
   header("Location: login.php");
-}
+}*/
  ?>
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
@@ -36,10 +38,14 @@ if ($_SESSION['Complete'] == "FALSE") {
                 <th>Link</th>
               </thead>
               <tbody>
-                <?php  ?>
+                <?php $count=0; while($row = $res->fetch_assoc()) { $count = $count + 1;?>
                 <tr>
-
+                  <td><?php echo $count; ?></td>
+                  <td> <img src="<?php echo $row['image']; ?>" style="width:20%;"> </td>
+                  <td><?php echo $row['first_name'].' '.$row['last_name']; ?></td>
+                  <td><a class="button primary" href="profile.php?id=<?php echo $row['user_id']; ?>"><?php echo $row['first_name']."'s' Profile"; ?></a></td>
                 </tr>
+              <?php } ?>
               </tbody>
             </table>
           </div>

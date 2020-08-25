@@ -1,28 +1,3 @@
-<?php
-session_start();
-require 'conn.php';
-$cx = $conn;
-if ($_SESSION['Complete'] != "FALSE") {
-  header("Location: login.php");
-}
-if(isset($_POST['complete']))
-{
-   $profileImageName = time() . '-' . $_FILES["upload"]["name"];
-   $target_dir = "upload/";
-   $target_file = $target_dir . basename($profileImageName);
-   $FirstName = $_POST['fname'];
-   $LastName = $_POST['lname'];
-   $Bio = $_POST['bio'];
-   $DoB = $_POST['dob'];
-   $LoggedID = $_SESSION['Logged_ID'];
-   if(move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) {
-  $sql = "INSERT INTO user_data(user_id,dob,bio,image,first_name,last_name) VALUES('$LoggedID','$DoB','$Bio','$target_file','$FirstName','$LastName')";
-  if ($cx->query($sql) === TRUE) {
-    header("Location: dashboard.php");
-  }
-}
-}
- ?>
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
   <head>
@@ -37,7 +12,7 @@ if(isset($_POST['complete']))
     <div class="grid-container">
       <div class="grid-x grid-padding-x">
         <div class="large-12 cell">
-          <h1>Welcome <?php echo $_SESSION['Username']; ?>, Finish Setting up Your Account</h1>
+          <h1>Welcome <?php session_start(); echo $_SESSION['Username']; ?>, Finish Setting up Your Account</h1>
         </div>
       </div>
 
@@ -45,11 +20,11 @@ if(isset($_POST['complete']))
         <div class="large-12 cell">
           <div class="callout">
             <h3>Fill in the Details of Registration</h3>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form action="process.php" method="post" enctype="multipart/form-data">
               <div class="grid-x grid-padding-x">
                 <div class="large-4 cell">
                   <label>Image Upload</label>
-                  <input required type="file" id="upload" name="upload">
+                  <input required type="file" name="uploadx">
                 </div>
                 <div class="large-4 cell">
                   <label>Date Of Birth</label>
@@ -76,7 +51,7 @@ if(isset($_POST['complete']))
                   </div>
                 </div>
               </div>
-              <input type="button" class="success button" name="complete" id="complete" value="Complete Profile">
+              <input type="submit" class="success button" name="complete" id="complete" value="Complete Profile">
             </form>
           </div>
         </div>
