@@ -19,6 +19,7 @@ $( document ).ready(function() {
           {username:username, email:email, password:pass},
           //Callback
           function(result){
+            alert(result);
             if (result=="ok") {
               alert('Account Created and Setup');
               window.location.href = 'setup.php';

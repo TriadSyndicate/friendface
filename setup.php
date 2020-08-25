@@ -16,9 +16,9 @@ if(isset($_POST['complete']))
    $DoB = $_POST['dob'];
    $LoggedID = $_SESSION['Logged_ID'];
    if(move_uploaded_file($_FILES["upload"]["tmp_name"], $target_file)) {
-  $sql = "INSERT INTO user_data (user_id,dob,bio,image,first_name,last_name) VALUES('$LoggedID','$DoB','$Bio','$target_file','$FirstName','$LastName')";
+  $sql = "INSERT INTO user_data(user_id,dob,bio,image,first_name,last_name) VALUES('$LoggedID','$DoB','$Bio','$target_file','$FirstName','$LastName')";
   if ($cx->query($sql) === TRUE) {
-    header("Location:dashboard.php");
+    header("Location: dashboard.php");
   }
 }
 }
@@ -71,7 +71,7 @@ if(isset($_POST['complete']))
                   <div class="grid-x">
                     <label>Last Name</label>
                     <div class="input-group">
-                      <input required type="password" name="lname" id="lname" placeholder="Last Name"/>
+                      <input required type="text" name="lname" id="lname" placeholder="Last Name"/>
                     </div>
                   </div>
                 </div>
